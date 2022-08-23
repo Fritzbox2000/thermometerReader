@@ -2,7 +2,7 @@ import plotly
 import pandas as pd
 import time
 
-def makePage():
+def makePage() -> None:
     df = pd.read_csv("./data.csv")
 
     data = [plotly.graph_objs.Scatter(x = df['time'], y = df['heat'],)]

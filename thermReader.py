@@ -10,18 +10,18 @@ base_dir = '/sys/bus/w1/devices/'
 device_folder = glob.glob(base_dir+'28*')[0]
 device_file = device_folder + '/w1_slave'
 
-def read_rom(device_folder):
+def read_rom(device_folder) -> str:
     name_file=device_folder
     f=open(name_file,'r')
     return f.readline()
 
-def read_temp_raw():
+def read_temp_raw() -> list[str]:
     f=open(device_file,'r')
     lines=f.readlines()
     f.close()
     return lines
 
-def read_temp():
+def read_temp() -> float | None:
     lines = read_temp_raw()
 
     while lines[0].strip()[-3:] != 'YES':
