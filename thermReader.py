@@ -21,12 +21,15 @@ def read_temp_raw() -> list[str]:
     f.close()
     return lines
 
-def read_temp() -> float | None:
+def read_temp() -> float:
     lines = read_temp_raw()
-
-    while lines[0].strip()[-3:] != 'YES':
-        time.sleep(0.2)
-        lines = read_temp_raw()
+    try:
+        while lines[0].strip()[-3:] != 'YES':
+            time.sleep(0.2)
+            lines = read_temp_raw()
+    except Exception as e:
+        print(f"Oh no, something really broke \n{e}")
+        return 0
     equal_pos = lines[1].find('t=')
     if equal_pos != -1:
         temp_string = lines[1][equal_pos+2:]
